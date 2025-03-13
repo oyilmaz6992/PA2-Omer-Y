@@ -1,0 +1,35 @@
+﻿@model EventDetails
+
+<h2>Edit Event Details</h2>
+
+<!-- Event Editing Form -->
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <!-- Input for Event Title -->
+    <div class="form-group">
+        <label asp-for="Title">Event Title</label>
+        <input asp-for="Title" class="form-control" required />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <!-- Date Picker for Event Schedule -->
+    <div class="form-group">
+        <label asp-for="EventDate">Event Date</label>
+        <input asp-for="EventDate" type="date" class="form-control" required />
+        <span asp-validation-for="EventDate" class="text-danger"></span>
+    </div>
+
+    <!-- Input for Event Venue -->
+    <div class="form-group">
+        <label asp-for="Venue">Venue</label>
+        <input asp-for="Venue" class="form-control" required />
+        <span asp-validation-for="Venue" class="text-danger"></span>
+    </div>
+
+    <!-- Submit Button for Saving Changes -->
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+<!-- Navigation Button to Return to Event List -->
+<a asp-controller="Event" asp-action="Index" class="btn btn-secondary">Back to Events</a>

@@ -1,0 +1,67 @@
+﻿@model EventDetails
+
+<h2>Manage Invitations for @Model.Title</h2>
+
+<!-- RSVP Overview Section -->
+<div class="card p-3 mb-3">
+    <h4>Attendance Summary</h4>
+    <ul>
+        <li><strong>Total Invitations:</strong> @ViewBag.TotalInvitations</li>
+        <li><strong>Confirmed Attendees:</strong> @ViewBag.Accepted</li>
+        <li><strong>Declined Invitations:</strong> @ViewBag.Declined</li>
+        <li><strong>Pending Responses:</strong> @ViewBag.Pending</li>
+    </ul>
+</div>
+
+<!-- Form to Add a New Guest Invitation -->
+<h3>Add a Guest</h3>
+<form asp-action="AddInvitation" method="post">
+    <input type="hidden" name="eventId" value="@Model.Id" />
+
+    <div class="form-group">
+        <label for="guestName">Guest Name</label>
+        <input type="text" name="guestName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="guestEmail">Guest Email</label>
+        <input type="email" name="guestEmail" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Guest</button>
+</form>
+
+<!-- Table Displaying the List of Guests -->
+<h3>Guest List</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Guest Name</th>
+            <th>Email Address</th>
+            <th>Invitation Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var invitation in Model.Invitations)
+        {
+            <tr>
+                <td>@invitation.GuestName</td>
+                <td>@invitation.GuestEmail</td>
+                <td>@invitation.Status</td>
+                <td>
+                    @if (invitation.Status == InvitationStatus.NotSent)
+                    {
+                        <form asp-action="SendInvitation" method="post" style="display:inline;">
+                            <input type="hidden" name="invitationId" value="@invitation.Id" />
+                            <button type="submit" class="btn btn-success">Send Invitation</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Navigation Button Back to Events -->
+<a href="/Event" class="btn btn-secondary">Back to Events</a>

@@ -1,0 +1,23 @@
+﻿@model Invitation
+
+<h2>RSVP Confirmation for @Model.Event.Title</h2>
+
+<!-- Personalized Greeting for Guest -->
+<p>Dear @Model.GuestName,</p>
+
+<!-- Event Details Section -->
+<p>
+    You have been invited to <strong>@Model.Event.Title</strong>
+    scheduled on <strong>@Model.Event.EventDate.ToShortDateString()</strong>
+    at <strong>@Model.Event.Venue</strong>.
+</p>
+
+<p>Please confirm your attendance below:</p>
+
+<!-- RSVP Response Form -->
+<form asp-action="SubmitResponse" method="post">
+    <input type="hidden" name="invitationId" value="@Model.Id" />
+
+    <button type="submit" name="rsvpResponse" value="yes" class="btn btn-success">Yes, I will attend</button>
+    <button type="submit" name="rsvpResponse" value="no" class="btn btn-danger">No, I can't attend</button>
+</form>

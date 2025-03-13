@@ -1,0 +1,20 @@
+﻿@model EventDetails
+
+<h2>Confirm Event Deletion</h2>
+
+<!-- Warning Message -->
+<p class="text-danger">Are you sure you want to permanently remove this event?</p>
+
+<!-- Event Details Display -->
+<ul>
+    <li><strong>Event Title:</strong> @Model.Title</li>
+    <li><strong>Scheduled Date:</strong> @Model.EventDate.ToShortDateString()</li>
+    <li><strong>Venue:</strong> @Model.Venue</li>
+</ul>
+
+<!-- Deletion Confirmation Form -->
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete Event</button>
+    <a asp-controller="Event" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
